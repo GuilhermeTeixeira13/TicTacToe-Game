@@ -1,55 +1,55 @@
 #include <stdio.h>
 #define N 3
 
-void inicializaGrelha(char grid[N][N])
+void inicializeGrid(char grid[N][N])
 {
     /*
     * Goal: Inicialize empy grid, with the size of NxN
     * 
     * grid: Name of the grid that we want to inicialize
     */
-    int linha, coluna;
+    int line, column;
 
-    for(linha=0; linha<N; linha++)
+    for(line=0; line<N; line++)
     {
-        for(coluna=0; coluna<N; coluna++)
+        for(column=0; column<N; column++)
         {
-            grid[linha][coluna] = ' '; 
+            grid[line][column] = ' '; 
         }
     }
 }
 
 
-void imprimeGrelha(char grid[N][N])
+void printGrid(char grid[N][N])
 {
     /*
     * Goal: Print Nxn grid, with the 'symbols' in the respective coordinates
     * 
     * grid: Name of the grid that we want to print
     */
-    int linha, coluna, bloco;
+    int line, column, square;
 
-    for(linha=0; linha<N; linha++)
+    for(line=0; line<N; line++)
     {
-        for(coluna=0; coluna<N; coluna++)
+        for(column=0; column<N; column++)
         {
-            if(coluna<N-1)
+            if(column<N-1)
             {
-                printf(" %c |", grid[linha][coluna]);
+                printf(" %c |", grid[line][column]);
             }
             else
             {
-                printf(" %c \n", grid[linha][coluna]);
+                printf(" %c \n", grid[line][column]);
             }
         }
-        for(bloco=0; bloco<N; bloco++)
+        for(square=0; square<N; square++)
         {
-            if(linha<(N-1))
+            if(line<(N-1))
             {
                 printf("--- ");
             }
         }
-        if(linha<(N-1))
+        if(line<(N-1))
         {
             printf("\n");
         }
@@ -57,7 +57,7 @@ void imprimeGrelha(char grid[N][N])
 }
 
 
-int jogada(char grid[N][N], int x, int y, int jogador)
+int play(char grid[N][N], int x, int y, int player)
 {
     /*
     * Goal: Put the player symbol in the coordinates that he wants of the grid NxN
@@ -75,7 +75,7 @@ int jogada(char grid[N][N], int x, int y, int jogador)
     char sym;
 
         /*   ↓  Giving symbols to the players ↓   */
-    if(jogador == 0)
+    if(player == 0)
     {
         sym = 'O';
     }
@@ -102,7 +102,7 @@ int jogada(char grid[N][N], int x, int y, int jogador)
 }
 
 
-int tresEmLinha(char grid[N][N], int x, int y)
+int threeInRow(char grid[N][N], int x, int y)
 {
     /*
     * Goal: Check if there are three symbols in a row in the NxN grid, in relation to the desired position
@@ -117,74 +117,74 @@ int tresEmLinha(char grid[N][N], int x, int y)
     *       1: If there is a 3 in a row
     */
 
-    int linha, coluna;
-    char elementosLinha[N], elementosColuna[N], elementosDiaPri[N] = {' ', ' ', ' '}, elementosDiaSec[N] = {' ', ' ', ' '};
+    int line, column;
+    char lineElements[N], columnElements[N], MainDiaElements[N] = {' ', ' ', ' '}, SecDiaElements[N] = {' ', ' ', ' '};
 
 
     /*   ↓ Collects all elements of the move line ↓   */
-    for(coluna=0; coluna<N; coluna++)
+    for(column=0; column<N; column++)
     {
-        elementosLinha[coluna] = grid[x][coluna];
+        lineElements[column] = grid[x][column];
     }
 
     /*   ↓ Collects all elements of the move collumn ↓   */
-    for(linha=0; linha<N; linha++)
+    for(line=0; line<N; line++)
     {
-        elementosColuna[linha] = grid[linha][y];
+        columnElements[line] = grid[line][y];
     }
 
     /*   ↓ Collects all elements of the main diagonal, if (x,y) belongs to it ↓   */
-    int coordenada_na_dp = 0;
+    int MDcoordinate = 0;
     if(x==y)
     {
-        coordenada_na_dp = 1;
-        for(linha=0; linha<N; linha++)
+        MDcoordinate = 1;
+        for(line=0; line<N; line++)
         {
-            for(coluna=0; coluna<N; coluna++)
+            for(column=0; column<N; column++)
             {
-                if(linha==coluna)
+                if(line==column)
                 {
-                    elementosDiaPri[coluna] = grid[linha][coluna];
+                    MainDiaElements[column] = grid[line][column];
                 }
             }
         }
     }
 
     /*   ↓ Collects all elements of the secundary diagonal, if (x,y) belongs to it ↓   */
-    linha=0;
-    int coordenada_na_ds = 0;
-    for(coluna=(N-1);coluna>=0;coluna--)
+    line=0;
+    int SDcoordinate = 0;
+    for(column=(N-1);column>=0;column--)
     {
-        if(linha==x && coluna==y)
+        if(line==x && column==y)
         {
-            coordenada_na_ds = 1;
+            SDcoordinate = 1;
         }
-        linha++;
+        line++;
     }
-    linha = 0;
-    if(coordenada_na_ds == 1)
+    line = 0;
+    if(SDcoordinate == 1)
     {
-        for(coluna=(N-1);coluna>=0;coluna--)
+        for(column=(N-1);column>=0;column--)
         {
-            elementosDiaSec[coluna] = grid[linha][coluna];
-            linha++;
+            SecDiaElements[column] = grid[line][column];
+            line++;
         }
     }
 
     /*   ↓ Returns conditions ↓   */
-    if(elementosColuna[0] == elementosColuna[1] && elementosColuna[0] == elementosColuna[2])
+    if(columnElements[0] == columnElements[1] && columnElements[0] == columnElements[2])
     {
         return 1;
     }
-    else if(elementosLinha[0] == elementosLinha[1] && elementosLinha[0] == elementosLinha[2])
+    else if(lineElements[0] == lineElements[1] && lineElements[0] == lineElements[2])
     {
         return 1;
     }
-    else if(coordenada_na_dp==1 && (elementosDiaPri[0]==elementosDiaPri[1] && elementosDiaPri[0]==elementosDiaPri[2]))
+    else if(MDcoordinate==1 && (MainDiaElements[0]==MainDiaElements[1] && MainDiaElements[0]==MainDiaElements[2]))
     {
         return 1;
     }
-    else if(coordenada_na_ds==1 && (elementosDiaSec[0]==elementosDiaSec[1] && elementosDiaSec[0]==elementosDiaSec[2]))
+    else if(SDcoordinate==1 && (SecDiaElements[0]==SecDiaElements[1] && SecDiaElements[0]==SecDiaElements[2]))
     {
         return 1;
     }
@@ -200,8 +200,8 @@ int tresEmLinha(char grid[N][N], int x, int y)
 
 int main(void)
 {
-    char grelha[N][N], sym;
-    int x, y, n, contador, jogador, recebeCoordenada, coordenadaLetra, empate, jogoTermina=0, jogadaInvalida;
+    char grid[N][N], sym;
+    int x, y, n, counter, player, reciveCoordinate, coordinateLetter, draw, gameEnds=0, invalidPlay;
 
     /*   ↓ The ganme starts ↓   */
     for(n=0; n<65; n++)
@@ -215,7 +215,7 @@ int main(void)
         printf(" ");
     }
 
-    printf("Seja bem-vindo ao Jogo do Galo!!!\n");
+    printf("Welcome to Tic Tac Toe game!!!\n");
 
     printf(" \n");
     for(n=0; n<65; n++)
@@ -224,10 +224,10 @@ int main(void)
     }
     printf("\n");
 
-    printf("Aspetos IMPORTANTES:\n");
-    printf(" . Jogador 0: Usa o símbolo 'O'.\n");
-    printf(" . Jogador 1: Usa o símbolo 'X'.\n");
-    printf(" . Na grelha 3x3, as linhas e colunas estão numeradas de 0 a 2.\n");
+    printf("IMPORTANT STUFF:\n");
+    printf(" . player 0: Uses the 'O' symbol.\n");
+    printf(" . player 1: Uses the 'X' symbol.\n");
+    printf(" . In the 3x3 grid, lines and columns starts in 0 and ends at 2.\n");
 
     for(n=0; n<65; n++)
     {
@@ -235,24 +235,24 @@ int main(void)
     }
     printf("\n");
 
-    printf("\t\t  |--  INICIALIZANDO JOGO  --|\n");
+    printf("\t\t  |--  STARTING THE GAME --|\n");
     printf("\n");
-    inicializaGrelha(grelha);
-    imprimeGrelha(grelha);
-    contador=0;
+    inicializeGrid(grid);
+    printGrid(grid);
+    counter=0;
 
-    while(contador <=9 || jogoTermina != 1)
+    while(counter <=9 || gameEnds != 1)
     {
     /*   ↓ Players order ↓   */
-        if (contador % 2 == 0)
+        if (counter % 2 == 0)
         {   
             sym = 'O';
-            jogador = 0;
+            player = 0;
         }
-        else if (contador % 2 != 0)
+        else if (counter % 2 != 0)
         {
             sym = 'X';
-            jogador = 1;
+            player = 1;
         }
 
         for(n=0; n<65; n++)
@@ -260,80 +260,80 @@ int main(void)
             printf("-");
         }
         printf("\n");
-        printf("\t\t       |--  JOGADOR %d  --|\n", jogador);
+        printf("\t\t       |--  PLAYER %d  --|\n", player);
         printf("\n");
 
         /*   ↓ Start of the move ↓   */
         do
         {
             /*   ↓ Asks for a valid input ↓   */
-            if(jogadaInvalida == 1 || jogadaInvalida == 2 || coordenadaLetra == 1)
+            if(invalidPlay == 1 || invalidPlay == 2 || coordinateLetter == 1)
             {
                 printf("\n");
-                printf("-> Erro!! Digite coordenadas (0 a 2) válidas. <-\n");
-                printf("-> Por favor, certifique-se que a célula pretendida está vazia. <-\n");
+                printf("-> Error!! Write valid coordinates (0 to 2). <-\n");
+                printf("-> Please verify if the call that you want is empty. <-\n");
                 printf("\n");
             }
-            printf("COORDENADAS PARA COLOCAR O '%c':\n", sym);
-            printf(" --> Número da linha (0 a 2): ");
+            printf("COORDINATES TO PUT THE '%c':\n", sym);
+            printf(" --> Line number (0 a 2): ");
 
             /*   ↓ Check if the input is a letter ↓   */
-            recebeCoordenada = scanf("%d", &x);
+            reciveCoordinate = scanf("%d", &x);
 
-            if(recebeCoordenada != 1) 
+            if(reciveCoordinate != 1) 
             {
                 getchar();
-                coordenadaLetra = 1;
+                coordinateLetter = 1;
             }
             else
             {
-                coordenadaLetra = 0;
+                coordinateLetter = 0;
             }
-            printf(" --> Número da coluna (0 a 2): ");
+            printf(" --> Column number (0 a 2): ");
 
             /*   ↓ Check if the input is a letter ↓   */
-            recebeCoordenada = scanf("%d", &y);
+            reciveCoordinate = scanf("%d", &y);
 
-            if(recebeCoordenada != 1) 
+            if(reciveCoordinate != 1) 
             {
                 getchar();
-                coordenadaLetra = 1;
+                coordinateLetter = 1;
             }
             else
             {
-                coordenadaLetra = 0;
+                coordinateLetter = 0;
             }
 
-            jogadaInvalida = jogada(grelha, x, y, jogador);
+            invalidPlay = play(grid, x, y, player);
 
-        }while(jogadaInvalida == 1 || jogadaInvalida == 2 || coordenadaLetra == 1); 
+        }while(invalidPlay == 1 || invalidPlay == 2 || coordinateLetter == 1); 
 
 
-        jogada(grelha, x, y, jogador);
+        play(grid, x, y, player);
         printf("\n");
-        imprimeGrelha(grelha);
+        printGrid(grid);
 
         /*   ↓ If the number of moves is above 3, checks if there is any 3 in a row ↓   */
-        if(contador>3)
+        if(counter>3)
         {
-            jogoTermina = tresEmLinha(grelha, x, y);
+            gameEnds = threeInRow(grid, x, y);
         }
             /*   ↓ If he finds a 3 in a row, the game is done ↓   */
-        if(jogoTermina==1)
+        if(gameEnds==1)
         {
             break;
         }
-        if(jogoTermina==-1)
+        if(gameEnds==-1)
         {
-            printf("Coordenadas inválidas!!\n");
+            printf("Invalid coordinates!!\n");
         }
-        if(contador == 8) 
+        if(counter == 8) 
         {
             /*   ↓ If the number of moves is 8, then no one wins - Draw ↓   */
-            empate = 1; 
+            draw = 1; 
             break;
         }
-        contador++;
+        counter++;
     }
 
     /*   ↓ End of the game ↓   */
@@ -346,40 +346,40 @@ int main(void)
 
     printf("\n");
 
-    for(n=0; n<19; n++)
+    for(n=0; n<21; n++)
     {
         printf(" ");
     }
 
-    /*   ↓ Mensagem em caso de empate ↓   */
-    if(empate == 1) 
+    /*   ↓ Draw message ↓   */
+    if(draw == 1) 
     {
-        printf("**  JOGO EMPATADO  **\n");
-        printf("     Nenhum dos jogadores colocou 3 símbolos em linha: \n");
+        printf("**  GAME DRAW  **\n");
+        printf("     None of the players placed 3 symbols in a row. \n");
     }
-    /*   ↓ Mensagem caso alguém vença ↓   */
+    /*   ↓ Winning message ↓   */
     else 
     {
-        printf("** JOGADOR %d VENCEU !! **\n", jogador);
+        printf("** PLAYER %d WON !! **\n", player);
         printf("\n");
-        printf("   O JOGADOR %d colocou 3 símbolos em linha e ganhou o jogo: \n", jogador);
+        printf("   PLAYER %d lined 3 symbols and won the game! \n", player);
     }
     printf("\n");
-    imprimeGrelha(grelha);
+    printGrid(grid);
     printf("\n");
 
-    /*   ↓ Fim do programa ↓   */
+    /*   ↓ The program ends ↓   */
     for(n=0; n<65; n++)
-        {
-            printf("*");
-        }
-        printf("\n");
+    {
+        printf("*");
+    }
     printf("\n");
-    for(n=0; n<19; n++)
+    printf("\n");
+    for(n=0; n<21; n++)
     {
         printf(" ");
     }
-    printf("Programa terminado!\n");
+    printf("See you later!\n");
     printf("\n");
     return 0;
 }
