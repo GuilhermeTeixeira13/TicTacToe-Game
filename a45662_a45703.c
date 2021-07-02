@@ -23,9 +23,9 @@ void inicializaGrelha(char grid[N][N])
 void imprimeGrelha(char grid[N][N])
 {
     /*
-    * Objetivo: Imprimir grelha de tamanho N, com os 'símbolos' nas respetivas coordenadas
+    * Goal: Print Nxn grid, with the 'symbols' in the respective coordinates
     * 
-    * grid: nome da grelha que pretendemos imprimir 
+    * grid: Name of the grid that we want to print
     */
     int linha, coluna, bloco;
 
@@ -60,21 +60,21 @@ void imprimeGrelha(char grid[N][N])
 int jogada(char grid[N][N], int x, int y, int jogador)
 {
     /*
-    * Objetivo: Colocar o símbolo do jogador, nas coordenadas por ele pretendidas, na grelha de tamanho N
+    * Goal: Put the player symbol in the coordinates that he wants of the grid NxN
     * 
-    * grid: nome da grelha em que pretendemos inserir a jogada
-    * x: número da linha (0, 1 ou 2)
-    * y: número da coluna (0, 1 ou 2)
-    * jogador: número do jogador que está a a fazer a jogada
+    * grid: Name of the grid that we want to insert the move
+    * x: line number (0, 1 or 2)
+    * y: column number (0, 1 ou 2)
+    * player: number of the player that is making the move
     * 
     * returns:
-    *       0: Se a jogada for fazível, ou seja, se as coordenadas estiverem vazias 
-    *       1: Se as coordenadas pretendidas estiverem fora de alcance (não existirem)
-    *       2: Se as coordenadas pretendidas já estiverem ocupadas
+    *       0: If the coordinates are empty
+    *       1: If the coordinates doesnt exists
+    *       2: If the coorsinates are taken
     */
     char sym;
 
-        /*   ↓ Atribui o simbolo ao jogador ↓   */
+        /*   ↓  Giving symbols to the players ↓   */
     if(jogador == 0)
     {
         sym = 'O';
@@ -84,7 +84,7 @@ int jogada(char grid[N][N], int x, int y, int jogador)
         sym = 'X';
     }
 
-    /*   ↓ Criam-se condições para os returns ↓   */
+    /*   ↓ Returns conditions ↓   */
     if (x < 0 || x > 2 || y < 0 || y > 2)
     {
         return 1;
@@ -105,35 +105,35 @@ int jogada(char grid[N][N], int x, int y, int jogador)
 int tresEmLinha(char grid[N][N], int x, int y)
 {
     /*
-    * Objetivo: Verificar se existem três símbolos em linha, na grelha de tamanho N, relativamente à posição pretendida
+    * Goal: Check if there are three symbols in a row in the NxN grid, in relation to the desired position
     * 
-    * grid: nome da grelha em que pretendemos inserir a jogada
-    * x: número da linha (0, 1 ou 2)
-    * y: número da coluna (0, 1 ou 2)
+    * grid: Name of the grid that we want to insert the move
+    * x: line number (0, 1 or 2)
+    * y: column number (0, 1 ou 2)
     * 
     * returns:
-    *       -1: Se as coordenadas digitadas estiverem vazias 
-    *       0: Caso não haja três em linha e as coordenadas sejam válidas 
-    *       1: Se houver um três em linha
+    *       -1: If the coordinates (x,y) are empty
+    *       0: If there isnt a 3 in a row and the coordinates are valid
+    *       1: If there is a 3 in a row
     */
 
     int linha, coluna;
     char elementosLinha[N], elementosColuna[N], elementosDiaPri[N] = {' ', ' ', ' '}, elementosDiaSec[N] = {' ', ' ', ' '};
 
 
-    /*   ↓ Coleta todos os elementos da linha da jogada ↓   */
+    /*   ↓ Collects all elements of the move line ↓   */
     for(coluna=0; coluna<N; coluna++)
     {
         elementosLinha[coluna] = grid[x][coluna];
     }
 
-    /*   ↓ Coleta todos os elementos da coluna da jogada ↓   */
+    /*   ↓ Collects all elements of the move collumn ↓   */
     for(linha=0; linha<N; linha++)
     {
         elementosColuna[linha] = grid[linha][y];
     }
 
-    /*   ↓ Coleta todos os elementos da diagonal principal, caso (x,y) lhe pertença ↓   */
+    /*   ↓ Collects all elements of the main diagonal, if (x,y) belongs to it ↓   */
     int coordenada_na_dp = 0;
     if(x==y)
     {
@@ -149,7 +149,8 @@ int tresEmLinha(char grid[N][N], int x, int y)
             }
         }
     }
-    /*   ↓ Coleta todos os elementos da diagonal secundária, caso (x,y) lhe pertença ↓   */
+
+    /*   ↓ Collects all elements of the secundary diagonal, if (x,y) belongs to it ↓   */
     linha=0;
     int coordenada_na_ds = 0;
     for(coluna=(N-1);coluna>=0;coluna--)
@@ -170,7 +171,7 @@ int tresEmLinha(char grid[N][N], int x, int y)
         }
     }
 
-    /*   ↓ Criam-se as condições para obter os return values ↓   */
+    /*   ↓ Returns conditions ↓   */
     if(elementosColuna[0] == elementosColuna[1] && elementosColuna[0] == elementosColuna[2])
     {
         return 1;
@@ -202,7 +203,7 @@ int main(void)
     char grelha[N][N], sym;
     int x, y, n, contador, jogador, recebeCoordenada, coordenadaLetra, empate, jogoTermina=0, jogadaInvalida;
 
-    /*   ↓ Começo do jogo ↓   */
+    /*   ↓ The ganme starts ↓   */
     for(n=0; n<65; n++)
     {
         printf("-");
@@ -242,7 +243,7 @@ int main(void)
 
     while(contador <=9 || jogoTermina != 1)
     {
-    /*   ↓ Ordem dos jogadores ↓   */
+    /*   ↓ Players order ↓   */
         if (contador % 2 == 0)
         {   
             sym = 'O';
@@ -262,10 +263,10 @@ int main(void)
         printf("\t\t       |--  JOGADOR %d  --|\n", jogador);
         printf("\n");
 
-        /*   ↓ Começo da jogada ↓   */
+        /*   ↓ Start of the move ↓   */
         do
         {
-            /*   ↓ Caso o input seja inválido, volta a pedir as cordenadas ↓   */
+            /*   ↓ Asks for a valid input ↓   */
             if(jogadaInvalida == 1 || jogadaInvalida == 2 || coordenadaLetra == 1)
             {
                 printf("\n");
@@ -276,7 +277,7 @@ int main(void)
             printf("COORDENADAS PARA COLOCAR O '%c':\n", sym);
             printf(" --> Número da linha (0 a 2): ");
 
-            /*   ↓ Analisa se o input é uma letra ↓   */
+            /*   ↓ Check if the input is a letter ↓   */
             recebeCoordenada = scanf("%d", &x);
 
             if(recebeCoordenada != 1) 
@@ -289,7 +290,8 @@ int main(void)
                 coordenadaLetra = 0;
             }
             printf(" --> Número da coluna (0 a 2): ");
-            /*   ↓ Analisa se o input é uma letra ↓   */
+
+            /*   ↓ Check if the input is a letter ↓   */
             recebeCoordenada = scanf("%d", &y);
 
             if(recebeCoordenada != 1) 
@@ -311,12 +313,12 @@ int main(void)
         printf("\n");
         imprimeGrelha(grelha);
 
-        /*   ↓ Verifica se a cordenada está inserida num "três em linha", caso já se tenham feito mais de 4 jogadas ↓   */
+        /*   ↓ If the number of moves is above 3, checks if there is any 3 in a row ↓   */
         if(contador>3)
         {
             jogoTermina = tresEmLinha(grelha, x, y);
         }
-            /*   ↓ Caso esteja, o jogo termina ↓   */
+            /*   ↓ If he finds a 3 in a row, the game is done ↓   */
         if(jogoTermina==1)
         {
             break;
@@ -327,14 +329,14 @@ int main(void)
         }
         if(contador == 8) 
         {
-            /*   ↓ Se forem feitas 8 jogadas  e o jogo ainda não tiver terminado, há um empate ↓   */
+            /*   ↓ If the number of moves is 8, then no one wins - Draw ↓   */
             empate = 1; 
             break;
         }
         contador++;
     }
 
-    /*   ↓ Fim do jogo ↓   */
+    /*   ↓ End of the game ↓   */
     printf("\n");
 
     for(n=0; n<65; n++)
