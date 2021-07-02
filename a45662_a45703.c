@@ -1,20 +1,12 @@
-/*
- * Nome, numero de aluno e turno pratico dos elementos do grupo:
- * Aluno 1: Guilherme Teixeira - a45662 - PL5
- * Aluno 2: Marco Bernardes - a45703 - PL5
- */
-
-/*Nao pode incluir headers adicionais*/
 #include <stdio.h>
 #define N 3
-
 
 void inicializaGrelha(char grid[N][N])
 {
     /*
-    * Objetivo: Inicializar grelha de tamanho N, vazia.
+    * Goal: Inicialize empy grid, with the size of NxN
     * 
-    * grid: nome da grelha que queremos inicializar
+    * grid: Name of the grid that we want to inicialize
     */
     int linha, coluna;
 
