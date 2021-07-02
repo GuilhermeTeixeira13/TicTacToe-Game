@@ -13,9 +13,7 @@ void inicializeGrid(char grid[N][N])
     for(line=0; line<N; line++)
     {
         for(column=0; column<N; column++)
-        {
             grid[line][column] = ' '; 
-        }
     }
 }
 
@@ -34,25 +32,17 @@ void printGrid(char grid[N][N])
         for(column=0; column<N; column++)
         {
             if(column<N-1)
-            {
                 printf(" %c |", grid[line][column]);
-            }
             else
-            {
                 printf(" %c \n", grid[line][column]);
-            }
         }
         for(square=0; square<N; square++)
         {
             if(line<(N-1))
-            {
                 printf("--- ");
-            }
         }
         if(line<(N-1))
-        {
             printf("\n");
-        }
     }
 }
 
@@ -76,23 +66,15 @@ int play(char grid[N][N], int x, int y, int player)
 
         /*   ↓  Giving symbols to the players ↓   */
     if(player == 0)
-    {
         sym = 'O';
-    }
-    else
-    {   
+    else 
         sym = 'X';
-    }
 
     /*   ↓ Returns conditions ↓   */
     if (x < 0 || x > 2 || y < 0 || y > 2)
-    {
         return 1;
-    }
     else if (grid[x][y] != ' ')
-    {
         return 2;
-    }
     else
     {
         grid[x][y] = sym;
@@ -123,15 +105,11 @@ int threeInRow(char grid[N][N], int x, int y)
 
     /*   ↓ Collects all elements of the move line ↓   */
     for(column=0; column<N; column++)
-    {
         lineElements[column] = grid[x][column];
-    }
 
     /*   ↓ Collects all elements of the move collumn ↓   */
     for(line=0; line<N; line++)
-    {
         columnElements[line] = grid[line][y];
-    }
 
     /*   ↓ Collects all elements of the main diagonal, if (x,y) belongs to it ↓   */
     int MDcoordinate = 0;
@@ -143,9 +121,7 @@ int threeInRow(char grid[N][N], int x, int y)
             for(column=0; column<N; column++)
             {
                 if(line==column)
-                {
                     MainDiaElements[column] = grid[line][column];
-                }
             }
         }
     }
@@ -156,9 +132,7 @@ int threeInRow(char grid[N][N], int x, int y)
     for(column=(N-1);column>=0;column--)
     {
         if(line==x && column==y)
-        {
             SDcoordinate = 1;
-        }
         line++;
     }
     line = 0;
@@ -173,29 +147,17 @@ int threeInRow(char grid[N][N], int x, int y)
 
     /*   ↓ Returns conditions ↓   */
     if(columnElements[0] == columnElements[1] && columnElements[0] == columnElements[2])
-    {
         return 1;
-    }
     else if(lineElements[0] == lineElements[1] && lineElements[0] == lineElements[2])
-    {
         return 1;
-    }
     else if(MDcoordinate==1 && (MainDiaElements[0]==MainDiaElements[1] && MainDiaElements[0]==MainDiaElements[2]))
-    {
         return 1;
-    }
     else if(SDcoordinate==1 && (SecDiaElements[0]==SecDiaElements[1] && SecDiaElements[0]==SecDiaElements[2]))
-    {
         return 1;
-    }
     else if(grid[x][y] == ' ')
-    {
         return -1;
-    }
     else
-    {
         return 0; 
-    }
 }
 
 int main(void)
@@ -205,23 +167,17 @@ int main(void)
 
     /*   ↓ The ganme starts ↓   */
     for(n=0; n<65; n++)
-    {
         printf("-");
-    }
     printf(" \n");
     printf(" \n");
     for(n=0; n<17; n++)
-    {
         printf(" ");
-    }
 
     printf("Welcome to Tic Tac Toe game!!!\n");
 
     printf(" \n");
     for(n=0; n<65; n++)
-    {
         printf("-");
-    }
     printf("\n");
 
     printf("IMPORTANT STUFF:\n");
@@ -230,9 +186,7 @@ int main(void)
     printf(" . In the 3x3 grid, lines and columns starts in 0 and ends at 2.\n");
 
     for(n=0; n<65; n++)
-    {
         printf("-");
-    }
     printf("\n");
 
     printf("\t\t  |--  STARTING THE GAME --|\n");
@@ -256,9 +210,7 @@ int main(void)
         }
 
         for(n=0; n<65; n++)
-        {
             printf("-");
-        }
         printf("\n");
         printf("\t\t       |--  PLAYER %d  --|\n", player);
         printf("\n");
@@ -286,9 +238,7 @@ int main(void)
                 coordinateLetter = 1;
             }
             else
-            {
                 coordinateLetter = 0;
-            }
             printf(" --> Column number (0 a 2): ");
 
             /*   ↓ Check if the input is a letter ↓   */
@@ -300,9 +250,7 @@ int main(void)
                 coordinateLetter = 1;
             }
             else
-            {
                 coordinateLetter = 0;
-            }
 
             invalidPlay = play(grid, x, y, player);
 
@@ -315,18 +263,13 @@ int main(void)
 
         /*   ↓ If the number of moves is above 3, checks if there is any 3 in a row ↓   */
         if(counter>3)
-        {
             gameEnds = threeInRow(grid, x, y);
-        }
-            /*   ↓ If he finds a 3 in a row, the game is done ↓   */
+
+        /*   ↓ If he finds a 3 in a row, the game is done ↓   */
         if(gameEnds==1)
-        {
             break;
-        }
         if(gameEnds==-1)
-        {
             printf("Invalid coordinates!!\n");
-        }
         if(counter == 8) 
         {
             /*   ↓ If the number of moves is 8, then no one wins - Draw ↓   */
@@ -340,16 +283,12 @@ int main(void)
     printf("\n");
 
     for(n=0; n<65; n++)
-    {
         printf("*");
-    }
 
     printf("\n");
 
     for(n=0; n<21; n++)
-    {
         printf(" ");
-    }
 
     /*   ↓ Draw message ↓   */
     if(draw == 1) 
@@ -370,15 +309,11 @@ int main(void)
 
     /*   ↓ The program ends ↓   */
     for(n=0; n<65; n++)
-    {
         printf("*");
-    }
     printf("\n");
     printf("\n");
     for(n=0; n<21; n++)
-    {
         printf(" ");
-    }
     printf("See you later!\n");
     printf("\n");
     return 0;
