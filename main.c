@@ -160,24 +160,29 @@ int threeInRow(char grid[N][N], int x, int y)
         return 0; 
 }
 
+void printChar(int numberOfspaces, char charac)
+{
+    int n;
+
+    for(n=1; n<numberOfspaces; n++)
+        printf("%c", charac);
+}
+
 int main(void)
 {
     char grid[N][N], sym;
     int x, y, n, counter, player, reciveCoordinate, coordinateLetter, draw, gameEnds=0, invalidPlay;
 
     /*   ↓ The ganme starts ↓   */
-    for(n=0; n<65; n++)
-        printf("-");
+    printChar(64, '-');
     printf(" \n");
     printf(" \n");
-    for(n=0; n<17; n++)
-        printf(" ");
+    printChar(16, ' ');
 
     printf("Welcome to Tic Tac Toe game!!!\n");
 
     printf(" \n");
-    for(n=0; n<65; n++)
-        printf("-");
+    printChar(64, '-');
     printf("\n");
 
     printf("IMPORTANT STUFF:\n");
@@ -185,8 +190,7 @@ int main(void)
     printf(" . player 1: Uses the 'X' symbol.\n");
     printf(" . In the 3x3 grid, lines and columns starts in 0 and ends at 2.\n");
 
-    for(n=0; n<65; n++)
-        printf("-");
+    printChar(64, '-');
     printf("\n");
 
     printf("\t\t  |--  STARTING THE GAME --|\n");
@@ -209,8 +213,7 @@ int main(void)
             player = 1;
         }
 
-        for(n=0; n<65; n++)
-            printf("-");
+        printChar(64, '-');
         printf("\n");
         printf("\t\t       |--  PLAYER %d  --|\n", player);
         printf("\n");
@@ -282,13 +285,11 @@ int main(void)
     /*   ↓ End of the game ↓   */
     printf("\n");
 
-    for(n=0; n<65; n++)
-        printf("*");
+    printChar(64, '*');
 
     printf("\n");
 
-    for(n=0; n<21; n++)
-        printf(" ");
+    printChar(20, ' ');
 
     /*   ↓ Draw message ↓   */
     if(draw == 1) 
@@ -308,12 +309,10 @@ int main(void)
     printf("\n");
 
     /*   ↓ The program ends ↓   */
-    for(n=0; n<65; n++)
-        printf("*");
+    printChar(64, '*');
     printf("\n");
     printf("\n");
-    for(n=0; n<21; n++)
-        printf(" ");
+    printChar(20, ' ');
     printf("See you later!\n");
     printf("\n");
     return 0;
