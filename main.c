@@ -176,7 +176,7 @@ void limpaInput()
 
 int main(void)
 {
-    char grid[N][N], sym, userPlayAgain[5], *pos;
+    char grid[N][N], sym, userPlayAgain[257], *pos;
     int x, y, n, counter, player, reciveCoordinate, coordinateLetter, draw, gameEnds=0, invalidPlay, changeFirstPlayer=0, repiteQuestion, playAgain;
 
     /*   ↓ The ganme starts ↓   */
@@ -335,7 +335,7 @@ int main(void)
         do
         {
             printf("Do you want to play again? [YES/NO] --> ");
-            fgets(userPlayAgain, 5, stdin);
+            fgets(userPlayAgain, 257, stdin);
             pos = strchr(userPlayAgain, '\n');
             *pos = '\0';
 
