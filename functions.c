@@ -181,3 +181,55 @@ void limpaInput()
 {
     while (getchar() != '\n');
 }
+
+
+
+/* The next functions only print message to help cleaning the code */
+
+void welcomeMSG()
+{
+    printChar(64, '-');
+    printf(" \n");
+    printf(" \n");
+    printChar(16, ' ');
+
+    printf("Welcome to Tic Tac Toe game!!!\n");
+
+    printf(" \n");
+    printChar(64, '-');
+    printf("\n");
+}
+
+void importantStuffMSG()
+{
+    printf("IMPORTANT STUFF:\n");
+    printf(" . player 0: Uses the 'O' symbol.\n");
+    printf(" . player 1: Uses the 'X' symbol.\n");
+    printf(" . In the 3x3 grid, lines and columns starts in 0 and ends at 2.\n");
+    printChar(64, '-');
+    printf("\n");
+}
+
+void startingGameMSG()
+{
+    printf("\t\t  |--  STARTING THE GAME --|\n");
+    printf("\n");
+}
+
+void invalidCoordinatesMSG()
+{
+    printf("\n");
+    printf("-> Error!! Write valid coordinates (0 to 2). <-\n");
+    printf("-> Please verify if the call that you want is empty. <-\n");
+    printf("\n");
+}
+
+void endingMSG()
+{
+    printChar(64, '*');
+    printf("\n");
+    printf("\n");
+    printChar(22, ' ');
+    printf("See you later!\n");
+    printf("\n");
+}

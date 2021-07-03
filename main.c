@@ -9,32 +9,16 @@ int main(void)
     int x, y, n, counter, player, reciveCoordinate, coordinateLetter, draw, gameEnds=0, invalidPlay, changeFirstPlayer=0, repiteQuestion, playAgain;
 
     /*   ↓ The ganme starts ↓   */
-    printChar(64, '-');
-    printf(" \n");
-    printf(" \n");
-    printChar(16, ' ');
-
-    printf("Welcome to Tic Tac Toe game!!!\n");
-
-    printf(" \n");
-    printChar(64, '-');
-    printf("\n");
+    welcomeMSG();
 
     do
     {
-        printf("IMPORTANT STUFF:\n");
-        printf(" . player 0: Uses the 'O' symbol.\n");
-        printf(" . player 1: Uses the 'X' symbol.\n");
-        printf(" . In the 3x3 grid, lines and columns starts in 0 and ends at 2.\n");
+        importantStuffMSG();
+        startingGameMSG();
 
-        printChar(64, '-');
-        printf("\n");
-
-        printf("\t\t  |--  STARTING THE GAME --|\n");
-        printf("\n");
         inicializeGrid(grid);
         printGrid(grid);
-        counter=0;
+        counter=1;
 
         while(counter <=9 || gameEnds != 1)
         {
@@ -77,10 +61,7 @@ int main(void)
                 /*   ↓ Asks for a valid input ↓   */
                 if(invalidPlay == 1 || invalidPlay == 2 || coordinateLetter == 1)
                 {
-                    printf("\n");
-                    printf("-> Error!! Write valid coordinates (0 to 2). <-\n");
-                    printf("-> Please verify if the call that you want is empty. <-\n");
-                    printf("\n");
+                    invalidCoordinatesMSG();
                 }
                 printf("COORDINATES TO PUT THE '%c':\n", sym);
                 printf(" --> Line number (0 a 2): ");
@@ -117,16 +98,16 @@ int main(void)
             printf("\n");
             printGrid(grid);
 
-            /*   ↓ If the number of moves is above 3, checks if there is any 3 in a row ↓   */
-            if(counter>3)
+            /*   ↓ If the number of moves is above 4, checks if there is any 3 in a row ↓   */
+            if(counter>4)
                 gameEnds = threeInRow(grid, x, y);
 
             /*   ↓ If he finds a 3 in a row, the game is done ↓   */
-            if(gameEnds==1)
+            if(gameEnds == 1)
                 break;
-            if(gameEnds==-1)
+            if(gameEnds == -1)
                 printf("Invalid coordinates!!\n");
-            if(counter == 8) 
+            if(counter == 9) 
             {
                 /*   ↓ If the number of moves is 8, then no one wins - Draw ↓   */
                 draw = 1; 
@@ -137,11 +118,8 @@ int main(void)
 
         /*   ↓ End of the game ↓   */
         printf("\n");
-
         printChar(64, '*');
-
         printf("\n");
-
         printChar(20, ' ');
 
         /*   ↓ Draw message ↓   */
@@ -150,6 +128,7 @@ int main(void)
             printf("**  GAME DRAW  **\n");
             printf("     None of the players placed 3 symbols in a row. \n");
         }
+
         /*   ↓ Winning message ↓   */
         else 
         {
@@ -157,10 +136,12 @@ int main(void)
             printf("\n");
             printf("   PLAYER %d lined 3 symbols and won the game! \n", player);
         }
+        
         printf("\n");
         printGrid(grid);
         printf("\n");
         limpaInput();
+
         do
         {
             printf("Do you want to play again? [YES/NO] --> ");
@@ -193,11 +174,6 @@ int main(void)
     }while(playAgain == 1);
 
     /*   ↓ The program ends ↓   */
-    printChar(64, '*');
-    printf("\n");
-    printf("\n");
-    printChar(22, ' ');
-    printf("See you later!\n");
-    printf("\n");
+    endingMSG();
     return 0;
 }
