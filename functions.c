@@ -161,14 +161,22 @@ int threeInRow(char grid[N][N], int x, int y)
         return 0; 
 }
 
-void printChar(int numberOfspaces, char charac)
+void printChar(int numberOfChars, char charac)
 {
+    /*
+    * Goal: Print a certain character, as many times as the user wants (numberOfChara)
+    *
+    * numberOfChars: Number of chars that the user wants to be printed
+    * charac: The char that will be printed numberOfChars times
+    * 
+    */
     int n;
 
-    for(n=1; n<numberOfspaces; n++)
+    for(n=1; n<numberOfChars; n++)
         printf("%c", charac);
 }
 
+/* Simply clean the input */
 void limpaInput()
 {
     while (getchar() != '\n');
